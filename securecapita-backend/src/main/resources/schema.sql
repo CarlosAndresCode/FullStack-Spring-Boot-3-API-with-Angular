@@ -23,7 +23,7 @@ CREATE TABLE users(
     using_mfa BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     image_url VARCHAR(255) DEFAULT 'https://media.istockphoto.com/id/587805156/es/vector/ilustraci%C3%B3n-vectorial-de-imagen-de-perfil.jpg?s=1024x1024&w=is&k=20&c=7q22pMnBZQRJGLmHIsbSqD2yeW_7VJUuu0Nvm9OK97k=',
-    CONSTRAINT uq_users_email UNIQUE (email)
+    CONSTRAINT un_users_email UNIQUE (email)
 );
 
 DROP TABLE IF EXISTS roles;
@@ -32,7 +32,7 @@ CREATE TABLE roles(
     id serial PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     permission VARCHAR(255) NOT NULL,
-    CONSTRAINT uq_roles_name UNIQUE (name)
+    CONSTRAINT un_roles_name UNIQUE (name)
 );
 
 DROP TABLE IF EXISTS userroles;
@@ -43,7 +43,7 @@ CREATE TABLE userroles(
     rol_id INTEGER NOT NULL,
     FOREIGN KEY (rol_id) REFERENCES roles (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT uq_userroles UNIQUE (user_id, rol_id)
+    CONSTRAINT un_userroles UNIQUE (user_id, rol_id)
 );
 
 
@@ -53,7 +53,7 @@ CREATE TABLE events(
     id serial PRIMARY KEY,
     type VARCHAR(50) NOT NULL CHECK ( type in ('LOGIN_ATTEMPT', 'LOGIN_ATTEMPT_FAILURE','LOGIN_ATTEMPT_SUCCESS', 'PROFILE_UPDATE', 'PROFILE_PICTURE_UPDATE', 'ROLE_UPDATE', 'ACCOUNT_SETTING_UPDATE', 'PASSWORD_UPDATE', 'MFA_UPDATE')),
     description VARCHAR(255) NOT NULL,
-    CONSTRAINT uq_events_type UNIQUE (type)
+    CONSTRAINT un_events_type UNIQUE (type)
 );
 
 DROP TABLE IF EXISTS userevents;
