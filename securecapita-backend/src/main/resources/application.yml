@@ -4,7 +4,7 @@ spring:
   datasource:
     username: postgres
     password: admin
-    url: jdbc:postgresql://localhost:5433/securecapita
+    url: jdbc:postgresql://localhost:5432/securecapita
   jpa:
     #database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     generate-ddl: true
